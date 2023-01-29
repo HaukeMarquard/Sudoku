@@ -11,18 +11,7 @@ struct AreaView: View {
     
     var area: [Int]
     
-    var body: some View {
-//        VStack {
-//            ForEach (area, id: \.self) { _ in
-//                HStack {
-//                    ForEach (area, id: \.self) { item in
-//                        Text("\(item)")
-//                    }
-//                }
-//            }
-//
-//        }
-        
+    var body: some View {        
         VStack {
             HStack {
                 Text("\(area[0])")

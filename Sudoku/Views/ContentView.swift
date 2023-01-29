@@ -19,23 +19,11 @@ struct ContentView: View {
                 HStack {
                     ForEach (i, id: \.self) { j in
                         AreaView(area: j)
-                            .padding(0.0)
                             .border(.black)
                     }
                 }
             }
         }
-        
-        
-//        VStack {
-//            ForEach (liste, id: \.self) { _ in
-//                HStack {
-//                    ForEach (liste, id: \.self) { _ in
-//                        AreaView(area: liste)
-//                    }
-//                }
-//            }
-//        }
     }
 }
 
