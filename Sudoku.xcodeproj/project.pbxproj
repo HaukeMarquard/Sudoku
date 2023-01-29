@@ -11,6 +11,8 @@
 		A8647BEE298599D400C25CF5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8647BED298599D400C25CF5 /* ContentView.swift */; };
 		A8647BF0298599D500C25CF5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8647BEF298599D500C25CF5 /* Assets.xcassets */; };
 		A8647BF3298599D500C25CF5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8647BF2298599D500C25CF5 /* Preview Assets.xcassets */; };
+		A88453362986A093008F08F6 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88453352986A093008F08F6 /* ViewModel.swift */; };
+		A88453382986A5CF008F08F6 /* AreaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88453372986A5CF008F08F6 /* AreaView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +21,8 @@
 		A8647BED298599D400C25CF5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A8647BEF298599D500C25CF5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A8647BF2298599D500C25CF5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		A88453352986A093008F08F6 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		A88453372986A5CF008F08F6 /* AreaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,8 +55,9 @@
 		A8647BEA298599D400C25CF5 /* Sudoku */ = {
 			isa = PBXGroup;
 			children = (
+				A88453342986A052008F08F6 /* ViewModels */,
+				A88453332986A04E008F08F6 /* Views */,
 				A8647BEB298599D400C25CF5 /* SudokuApp.swift */,
-				A8647BED298599D400C25CF5 /* ContentView.swift */,
 				A8647BEF298599D500C25CF5 /* Assets.xcassets */,
 				A8647BF1298599D500C25CF5 /* Preview Content */,
 			);
@@ -65,6 +70,23 @@
 				A8647BF2298599D500C25CF5 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		A88453332986A04E008F08F6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A8647BED298599D400C25CF5 /* ContentView.swift */,
+				A88453372986A5CF008F08F6 /* AreaView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		A88453342986A052008F08F6 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				A88453352986A093008F08F6 /* ViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,6 +160,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A8647BEE298599D400C25CF5 /* ContentView.swift in Sources */,
+				A88453382986A5CF008F08F6 /* AreaView.swift in Sources */,
+				A88453362986A093008F08F6 /* ViewModel.swift in Sources */,
 				A8647BEC298599D400C25CF5 /* SudokuApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
