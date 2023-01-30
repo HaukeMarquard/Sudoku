@@ -14,12 +14,13 @@ struct ContentView: View {
     
     var body: some View {
         
-        VStack {
+        VStack(spacing: 0) {
             ForEach (vm.field, id: \.self) { i in
-                HStack {
+                HStack(spacing: 0) {
                     ForEach (i, id: \.self) { j in
                         AreaView(area: j)
                             .border(.black)
+                            .ignoresSafeArea(.all)
                     }
                 }
             }

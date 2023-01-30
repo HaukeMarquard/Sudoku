@@ -12,19 +12,20 @@ struct AreaView: View {
     var area: [Int]
     
     var body: some View {        
-        VStack {
-            HStack {
+        VStack(spacing: 0) {
+            HStack(spacing: 0) {
                 Text("\(area[0])")
                     .frame(width: 30, height: 30)
                     .border(.gray)
                 Text("\(area[1])")
                     .frame(width: 30, height: 30)
                     .border(.gray)
+                    
                 Text("\(area[2])")
                     .frame(width: 30, height: 30)
                     .border(.gray)
             }
-            HStack {
+            HStack(spacing: 0) {
                 Text("\(area[3])")
                     .frame(width: 30, height: 30)
                     .border(.gray)
@@ -35,7 +36,7 @@ struct AreaView: View {
                     .frame(width: 30, height: 30)
                     .border(.gray)
             }
-            HStack {
+            HStack(spacing: 0) {
                 Text("\(area[6])")
                     .frame(width: 30, height: 30)
                     .border(.gray)
