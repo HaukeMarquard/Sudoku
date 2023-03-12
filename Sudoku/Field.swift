@@ -24,6 +24,8 @@ struct Field: View {
     @State var showLine: Bool = false
     @State var showArea: Bool = false
     
+    @EnvironmentObject var vM: ViewModel
+    
     func isActualSelected() -> Bool {
         return selectedArea == area && selectedField == field
     }
@@ -110,6 +112,7 @@ struct Field: View {
             selectedArea = area
             selectedField = field
             selectedValue = fieldValue
+            vM.setValue(area: area, field: field, value: .five)
         }
     }
     

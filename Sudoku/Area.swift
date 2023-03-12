@@ -19,6 +19,8 @@ struct Area: View {
         return i * 3 + j
     }
     
+    @EnvironmentObject var vM: ViewModel
+    
     @Binding var selectedArea: AreaAndField
     @Binding var selectedField: AreaAndField
     @Binding var selectedValue: AreaAndField
