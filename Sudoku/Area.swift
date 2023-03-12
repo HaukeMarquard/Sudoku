@@ -11,24 +11,76 @@ struct Area: View {
     
     var roundedBorder: [UIRectCorner] = []
     
+    var einstiegDatas: [AreaAndField]
+    
+    var area: AreaAndField = .zero
+    
+    func calculatePos(i: Int, j: Int) -> Int {
+        return i * 3 + j
+    }
+    
+    @Binding var selectedArea: AreaAndField
+    @Binding var selectedField: AreaAndField
+    @Binding var selectedValue: AreaAndField
+    
+
+    
     var body: some View {
         VStack(spacing: 0) {
             ForEach(0..<3) { i in
                 HStack(spacing: 0) {
                     ForEach(0..<3) { j in
                         if i == 0 && j == 0 && roundedBorder.contains(.topLeft) {
-                            Field(roundedBorder: [.topLeft], fieldValue: "1")
+                            Field(
+                                roundedBorder: [.topLeft],
+                                fieldValue: einstiegDatas[calculatePos(i: i, j: j)],
+                                area: area,
+                                field: AreaAndField(rawValue: String(calculatePos(i: i, j: j))) ?? .zero,
+                                selectedArea: $selectedArea,
+                                selectedField: $selectedField,
+                                selectedValue: $selectedValue
+                            )
+
                         } else if i == 0 && j == 2 && roundedBorder.contains(.topRight) {
-                            Field(roundedBorder: [.topRight], fieldValue: "2")
+                            Field(
+                                roundedBorder: [.topRight],
+                                fieldValue: einstiegDatas[calculatePos(i: i, j: j)],
+                                area: area,
+                                field: AreaAndField(rawValue: String(calculatePos(i: i, j: j))) ?? .zero,
+                                selectedArea: $selectedArea,
+                                selectedField: $selectedField,
+                                selectedValue: $selectedValue
+                            )
                         } else if i == 2 && j == 0 && roundedBorder.contains(.bottomLeft) {
-                            Field(roundedBorder: [.bottomLeft], fieldValue: "3")
+                            Field(
+                                roundedBorder: [.bottomLeft],
+                                fieldValue: einstiegDatas[calculatePos(i: i, j: j)],
+                                area: area,
+                                field: AreaAndField(rawValue: String(calculatePos(i: i, j: j))) ?? .zero,
+                                selectedArea: $selectedArea,
+                                selectedField: $selectedField,
+                                selectedValue: $selectedValue
+                            )
                         } else if i == 2 && j == 2 && roundedBorder.contains(.bottomRight) {
-                            Field(roundedBorder: [.bottomRight], fieldValue: "4")
+                            Field(
+                                roundedBorder: [.bottomRight],
+                                fieldValue: einstiegDatas[calculatePos(i: i, j: j)],
+                                area: area,
+                                field: AreaAndField(rawValue: String(calculatePos(i: i, j: j))) ?? .zero,
+                                selectedArea: $selectedArea,
+                                selectedField: $selectedField,
+                                selectedValue: $selectedValue
+                            )
                         } else {
-                            Field(fieldValue: "5")
+                            Field(
+                                fieldValue: einstiegDatas[calculatePos(i: i, j: j)],
+                                area: area,
+                                field: AreaAndField(rawValue: String(calculatePos(i: i, j: j))) ?? .zero,
+                                selectedArea: $selectedArea,
+                                selectedField: $selectedField,
+                                selectedValue: $selectedValue
+                            )
                         }
-                        
-                        
                     }
                 }
             }
@@ -105,6 +157,6 @@ struct Area: View {
 
 struct Area_Previews: PreviewProvider {
     static var previews: some View {
-        Area()
+        Area(einstiegDatas: [.zero,.five,.zero,.zero,.zero,.three,.one,.eight,.zero], selectedArea: .constant(.one), selectedField: .constant(.one), selectedValue: .constant(.one))
     }
 }

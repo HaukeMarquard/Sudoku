@@ -10,13 +10,35 @@ import SwiftUI
 struct Field: View {
     
     var roundedBorder: [UIRectCorner] = []
-    var fieldValue: String = "1"
+    var fieldValue: AreaAndField = .zero
+    
+    var area: AreaAndField = .zero
+    var field: AreaAndField = .zero
+    
+    @Binding var selectedArea: AreaAndField
+    @Binding var selectedField: AreaAndField
+    @Binding var selectedValue: AreaAndField
+    
+    @State var selected: Bool = false
+    
+    @State var showLine: Bool = false
+    @State var showArea: Bool = false
+    
+    func isActualSelected() -> Bool {
+        return selectedArea == area && selectedField == field
+    }
     
     var body: some View {
         VStack {
-            Text(fieldValue)
+            if fieldValue == .zero {
+                Text(" ")
+            } else {
+                Text(fieldValue.rawValue)
+            }
+            
         }
         .frame(width: 40, height: 40)
+        .background(isActualSelected() ? .red : amIHighlighted() ? .blue : fieldValue != .zero ? Color("fieldBackground") : .clear)
         .overlay(
             GeometryReader { geometry in
                 Path { path in
@@ -83,11 +105,121 @@ struct Field: View {
                 .stroke(Color.secondary, lineWidth: 1)
             }
         )
+        .onTapGesture {
+            selected = true
+            selectedArea = area
+            selectedField = field
+            selectedValue = fieldValue
+        }
     }
+    
+    func amIHighlighted() -> Bool {
+        var value:Bool = false
+        if showLine {
+            if let sArea = dict[selectedArea], sArea.contains(area) {
+                var areaPos:AreaPos = whereIsTheArea()
+                
+                switch areaPos {
+                case .horizontal:
+                    switch selectedField {
+                    case .zero, .one, .two:
+                        value = field == .zero || field == .one || field == .two
+                    case .three, .four, .five:
+                        value = field == .three || field == .four || field == .five
+                    case .six, .seven, .eight:
+                        value = field == .six || field == .seven || field == .eight
+                    case .nine:
+                        value = false
+                    }
+                case .vertical:
+                    switch selectedField {
+                    case .zero, .three, .six:
+                        value = field == .zero || field == .three || field == .six
+                    case .one, .four, .seven:
+                        value = field == .one || field == .four || field == .seven
+                    case .two, .five, .eight:
+                        value = field == .two || field == .five || field == .eight
+                    case .nine:
+                        value = false
+                    }
+                }
+                
+    //            value = true
+            } else {
+                value = false
+            }
+        }
+        
+        
+        if showArea && selectedArea == area {
+            value = true
+        }
+        
+        if selectedValue == fieldValue {
+            value = true
+        }
+        
+        if selectedValue == .zero { value = false }
+        return value
+    }
+    
+    func whereIsTheArea() -> AreaPos {
+        var areaPos = AreaPos.horizontal
+        
+        if let sArea = horizontalDict[selectedArea], sArea.contains(area) {
+            areaPos = .horizontal
+        } else if let sArea = verticalDict[selectedArea], sArea.contains(area) {
+            areaPos = .vertical
+        }
+        
+        return areaPos
+    }
+    
 }
+
+enum AreaPos: String {
+    case horizontal, vertical
+}
+
 
 struct Field_Previews: PreviewProvider {
     static var previews: some View {
-        Field()
+        Field(selectedArea: .constant(.one), selectedField: .constant(.two), selectedValue: .constant(.two))
     }
 }
+
+var dict: [AreaAndField : [AreaAndField]] = [
+    .zero:[.one,.two,.three,.six],
+    .one:[.zero,.two,.four, .seven],
+    .two:[.zero,.one,.five,.eight],
+    .three:[.zero,.six,.four,.five],
+    .four:[.one, .seven,.three,.five],
+    .five:[.three,.four,.two,.eight],
+    .six:[.zero,.three, .seven,.eight],
+    .seven:[.six,.eight,.one,.four],
+    .eight:[.two,.five,.six, .seven]
+]
+
+var horizontalDict: [AreaAndField: [AreaAndField]] = [
+    .zero: [.one,.two],
+    .one: [.zero,.two],
+    .two: [.zero,.one],
+    .three: [.four,.five],
+    .four: [.three,.five],
+    .five: [.three,.four],
+    .six: [ .seven,.eight],
+    .seven: [.six,.eight],
+    .eight: [.six, .seven],
+]
+
+var verticalDict: [AreaAndField: [AreaAndField]] = [
+    .zero: [.three,.six],
+    .one: [.four, .seven],
+    .two: [.five,.eight],
+    .three: [.zero,.six],
+    .four: [.one, .seven],
+    .five: [.two,.eight],
+    .six: [.zero,.three],
+    .seven: [.one,.four],
+    .eight: [.two,.five],
+]
