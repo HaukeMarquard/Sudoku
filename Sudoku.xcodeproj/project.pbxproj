@@ -15,6 +15,8 @@
 		A8647BEE298599D400C25CF5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8647BED298599D400C25CF5 /* ContentView.swift */; };
 		A8647BF0298599D500C25CF5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8647BEF298599D500C25CF5 /* Assets.xcassets */; };
 		A8647BF3298599D500C25CF5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8647BF2298599D500C25CF5 /* Preview Assets.xcassets */; };
+		A881D0C829BF6CBF00DEF3C4 /* SetValueBtnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A881D0C729BF6CBF00DEF3C4 /* SetValueBtnView.swift */; };
+		A881D0CA29BF79A900DEF3C4 /* CandidateFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A881D0C929BF79A900DEF3C4 /* CandidateFieldView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +29,8 @@
 		A8647BED298599D400C25CF5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A8647BEF298599D500C25CF5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A8647BF2298599D500C25CF5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		A881D0C729BF6CBF00DEF3C4 /* SetValueBtnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetValueBtnView.swift; sourceTree = "<group>"; };
+		A881D0C929BF79A900DEF3C4 /* CandidateFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateFieldView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +71,8 @@
 				A821212529BA36EF004BA383 /* Area.swift */,
 				A821212929BA3C10004BA383 /* Border.swift */,
 				A821212B29BE0577004BA383 /* ViewModel.swift */,
+				A881D0C729BF6CBF00DEF3C4 /* SetValueBtnView.swift */,
+				A881D0C929BF79A900DEF3C4 /* CandidateFieldView.swift */,
 			);
 			path = Sudoku;
 			sourceTree = "<group>";
@@ -151,10 +157,12 @@
 			files = (
 				A8647BEE298599D400C25CF5 /* ContentView.swift in Sources */,
 				A821212A29BA3C10004BA383 /* Border.swift in Sources */,
+				A881D0C829BF6CBF00DEF3C4 /* SetValueBtnView.swift in Sources */,
 				A8647BEC298599D400C25CF5 /* SudokuApp.swift in Sources */,
 				A821212629BA36EF004BA383 /* Area.swift in Sources */,
 				A821212C29BE0577004BA383 /* ViewModel.swift in Sources */,
 				A821212429BA36A1004BA383 /* Field.swift in Sources */,
+				A881D0CA29BF79A900DEF3C4 /* CandidateFieldView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

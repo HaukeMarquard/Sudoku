@@ -32,57 +32,18 @@ struct Area: View {
             ForEach(0..<3) { i in
                 HStack(spacing: 0) {
                     ForEach(0..<3) { j in
-                        if i == 0 && j == 0 && roundedBorder.contains(.topLeft) {
-                            Field(
-                                roundedBorder: [.topLeft],
-                                fieldValue: einstiegDatas[calculatePos(i: i, j: j)],
-                                area: area,
-                                field: AreaAndField(rawValue: String(calculatePos(i: i, j: j))) ?? .zero,
-                                selectedArea: $selectedArea,
-                                selectedField: $selectedField,
-                                selectedValue: $selectedValue
-                            )
-
-                        } else if i == 0 && j == 2 && roundedBorder.contains(.topRight) {
-                            Field(
-                                roundedBorder: [.topRight],
-                                fieldValue: einstiegDatas[calculatePos(i: i, j: j)],
-                                area: area,
-                                field: AreaAndField(rawValue: String(calculatePos(i: i, j: j))) ?? .zero,
-                                selectedArea: $selectedArea,
-                                selectedField: $selectedField,
-                                selectedValue: $selectedValue
-                            )
-                        } else if i == 2 && j == 0 && roundedBorder.contains(.bottomLeft) {
-                            Field(
-                                roundedBorder: [.bottomLeft],
-                                fieldValue: einstiegDatas[calculatePos(i: i, j: j)],
-                                area: area,
-                                field: AreaAndField(rawValue: String(calculatePos(i: i, j: j))) ?? .zero,
-                                selectedArea: $selectedArea,
-                                selectedField: $selectedField,
-                                selectedValue: $selectedValue
-                            )
-                        } else if i == 2 && j == 2 && roundedBorder.contains(.bottomRight) {
-                            Field(
-                                roundedBorder: [.bottomRight],
-                                fieldValue: einstiegDatas[calculatePos(i: i, j: j)],
-                                area: area,
-                                field: AreaAndField(rawValue: String(calculatePos(i: i, j: j))) ?? .zero,
-                                selectedArea: $selectedArea,
-                                selectedField: $selectedField,
-                                selectedValue: $selectedValue
-                            )
-                        } else {
-                            Field(
-                                fieldValue: einstiegDatas[calculatePos(i: i, j: j)],
-                                area: area,
-                                field: AreaAndField(rawValue: String(calculatePos(i: i, j: j))) ?? .zero,
-                                selectedArea: $selectedArea,
-                                selectedField: $selectedField,
-                                selectedValue: $selectedValue
-                            )
-                        }
+                        Field(
+                            roundedBorder: i == 0 && j == 0 && roundedBorder.contains(.topLeft) ? [.topLeft] :
+                                i == 0 && j == 2 && roundedBorder.contains(.topRight) ? [.topRight] :
+                                i == 2 && j == 0 && roundedBorder.contains(.bottomLeft) ? [.bottomLeft] :
+                                i == 2 && j == 2 && roundedBorder.contains(.bottomRight) ? [.bottomRight] : [],
+                            fieldValue: einstiegDatas[calculatePos(i: i, j: j)],
+                            area: area,
+                            field: AreaAndField(rawValue: String(calculatePos(i: i, j: j))) ?? .zero,
+                            selectedArea: $selectedArea,
+                            selectedField: $selectedField,
+                            selectedValue: $selectedValue
+                        )
                     }
                 }
             }
@@ -93,7 +54,7 @@ struct Area: View {
                     let width = geometry.size.width
                     let height = geometry.size.height
                     let cornerRadius = CGFloat(15)
-                    let lineWidth = CGFloat(2)
+//                    let lineWidth = CGFloat(2)
                     let topLeft = CGPoint(x: 0, y: 0)
                     let topRight = CGPoint(x: width, y: 0)
                     let bottomRight = CGPoint(x: width, y: height)
@@ -160,5 +121,6 @@ struct Area: View {
 struct Area_Previews: PreviewProvider {
     static var previews: some View {
         Area(einstiegDatas: [.zero,.five,.zero,.zero,.zero,.three,.one,.eight,.zero], selectedArea: .constant(.one), selectedField: .constant(.one), selectedValue: .constant(.one))
+            .environmentObject(ViewModel())
     }
 }

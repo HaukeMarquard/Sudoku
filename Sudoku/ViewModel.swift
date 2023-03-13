@@ -7,6 +7,18 @@
 
 import Foundation
 
+struct CandidateDict: Hashable {
+    let first: Int
+    let second: Int
+    let third: Int
+    
+    init(_ first: Int, _ second: Int, _ third: Int) {
+        self.first = first
+        self.second = second
+        self.third = third
+    }
+}
+
 class ViewModel: ObservableObject {
     @Published var einstieg: [[[AreaAndField]]] = [
         [
@@ -58,12 +70,62 @@ class ViewModel: ObservableObject {
             [.one, .four, .seven, .five, .nine, .two, .eight, .three, .six]
         ]
     ]
+    @Published var candidates: [CandidateDict:[AreaAndField]] = [CandidateDict(0 , 0, 2): [.one, .two]]
+    @Published var normalOrCandidate: EntryType = .normal
+    
+    var selectedField: PopUpField = PopUpField(first: 0, second: 0, third: 0)
     
     func setValue(area: AreaAndField, field: AreaAndField, value: AreaAndField ) {
-        guard let a = Int(area.rawValue), let third = Int(field.rawValue) else { return }
+        let (first, second, third) = calculatePosition(area: area, field: field)
+        eintragungen[first][second][third] = AreaAndField(rawValue: String(Int.random(in: 1...9))) ?? .zero
+    }
+    
+    func getEinstiegValue(area: AreaAndField, field: AreaAndField) -> AreaAndField {
+        let (first, second, third) = calculatePosition(area: area, field: field)
+        return einstieg[first][second][third]
+    }
+    
+    func getEintragungenValue(area: AreaAndField, field: AreaAndField) -> AreaAndField {
+        let (first, second, third) = calculatePosition(area: area, field: field)
+        return eintragungen[first][second][third]
+    }
+    
+    func isEntryValid(area: AreaAndField, field: AreaAndField) -> Bool {
+        let (first, second, third) = calculatePosition(area: area, field: field)
+        return eintragungen[first][second][third] == loesung[first][second][third] || eintragungen[first][second][third] == .zero
+    }
+    
+    func calculatePosition(area: AreaAndField, field: AreaAndField) -> (Int,Int,Int) {
+        guard let a = Int(area.rawValue), let third = Int(field.rawValue) else { return (0,0,0) }
         let first = Int(a / 3)
         let second = Int(a % 3)
-        eintragungen[first][second][third] = value
+        return (first, second, third)
+    }
+    
+    func setPopupField(area: AreaAndField, field: AreaAndField) {
+        let (first, second, third) = calculatePosition(area: area, field: field)
+        selectedField = PopUpField(first: first, second: second, third: third)
+    }
+    
+    func setNormal(value: AreaAndField) {
+        if normalOrCandidate == .normal {
+            eintragungen[selectedField.first][selectedField.second][selectedField.third] = value
+        } else {
+            candidates[CandidateDict(selectedField.first, selectedField.second, selectedField.third)] = [value]
+            print(candidates)
+        }
         
     }
+    
+    func getCandidates(area: AreaAndField, field: AreaAndField) -> [AreaAndField] {
+        let (first, second, third) = calculatePosition(area: area, field: field)
+        guard let candidates = candidates[CandidateDict(first, second, third)] else { return [] }
+        return candidates
+    }
+}
+
+struct PopUpField {
+    var first: Int
+    var second: Int
+    var third: Int
 }

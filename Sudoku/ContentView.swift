@@ -67,66 +67,111 @@ struct ContentView: View {
     @State var selectedField: AreaAndField = .zero
     @State var selectedValue: AreaAndField = .zero
     
+    @State var selectedEntryType: EntryType = .normal
+    
+    var btnFirstLine: [AreaAndField] = [.one, .two, .three, .four, .five]
+    var btnSecondLine: [AreaAndField] = [.six, .seven, .eight, .nine, .zero]
     
     var body: some View {
-        VStack(spacing: 0) {
-            ForEach(0..<3) { i in
-                HStack(spacing: 0) {
-                    ForEach(0..<3) { j in
-                        if i == 0 && j == 0 {
+        VStack {
+            VStack(spacing: 0) {
+                ForEach(0..<3) { i in
+                    HStack(spacing: 0) {
+                        ForEach(0..<3) { j in
                             Area(
-                                roundedBorder: [.topLeft],
+                                roundedBorder:
+                                    i == 0 && j == 0 ? [.topLeft] :
+                                    i == 0 && j == 2 ? [.topRight] :
+                                    i == 2 && j == 0 ? [.bottomLeft] :
+                                    i == 2 && j == 2 ? [.bottomRight] : [],
                                 einstiegDatas: vM.einstieg[i][j],
                                 area: calculateArea(i: i, j: j),
                                 selectedArea: $selectedArea,
                                 selectedField: $selectedField,
                                 selectedValue: $selectedValue
                             )
-                        } else if i == 0 && j == 2 {
-                            Area(
-                                roundedBorder: [.topRight],
-                                einstiegDatas: vM.einstieg[i][j],
-                                area:  calculateArea(i: i, j: j),
-                                selectedArea: $selectedArea,
-                                selectedField: $selectedField,
-                                selectedValue: $selectedValue
-                            )
-                        } else if i == 2 && j == 0 {
-                            Area(
-                                roundedBorder: [.bottomLeft],
-                                einstiegDatas: vM.einstieg[i][j],
-                                area: calculateArea(i: i, j: j),
-                                selectedArea: $selectedArea,
-                                selectedField: $selectedField,
-                                selectedValue: $selectedValue
-                            )
-                        } else if i == 2 && j == 2 {
-                            Area(
-                                roundedBorder: [.bottomRight],
-                                einstiegDatas: vM.einstieg[i][j],
-                                area: calculateArea(i: i, j: j),
-                                selectedArea: $selectedArea,
-                                selectedField: $selectedField,
-                                selectedValue: $selectedValue
-                            )
-                        } else {
-                            Area(
-                                einstiegDatas: vM.einstieg[i][j],
-                                area: calculateArea(i: i, j: j),
-                                selectedArea: $selectedArea,
-                                selectedField: $selectedField,
-                                selectedValue: $selectedValue
-                            )
+                            
+                            
+    //                        if i == 0 && j == 0 {
+    //                            Area(
+    //                                roundedBorder: [.topLeft],
+    //                                einstiegDatas: vM.einstieg[i][j],
+    //                                area: calculateArea(i: i, j: j),
+    //                                selectedArea: $selectedArea,
+    //                                selectedField: $selectedField,
+    //                                selectedValue: $selectedValue
+    //                            )
+    //                        } else if i == 0 && j == 2 {
+    //                            Area(
+    //                                roundedBorder: [.topRight],
+    //                                einstiegDatas: vM.einstieg[i][j],
+    //                                area:  calculateArea(i: i, j: j),
+    //                                selectedArea: $selectedArea,
+    //                                selectedField: $selectedField,
+    //                                selectedValue: $selectedValue
+    //                            )
+    //                        } else if i == 2 && j == 0 {
+    //                            Area(
+    //                                roundedBorder: [.bottomLeft],
+    //                                einstiegDatas: vM.einstieg[i][j],
+    //                                area: calculateArea(i: i, j: j),
+    //                                selectedArea: $selectedArea,
+    //                                selectedField: $selectedField,
+    //                                selectedValue: $selectedValue
+    //                            )
+    //                        } else if i == 2 && j == 2 {
+    //                            Area(
+    //                                roundedBorder: [.bottomRight],
+    //                                einstiegDatas: vM.einstieg[i][j],
+    //                                area: calculateArea(i: i, j: j),
+    //                                selectedArea: $selectedArea,
+    //                                selectedField: $selectedField,
+    //                                selectedValue: $selectedValue
+    //                            )
+    //                        } else {
+    //                            Area(
+    //                                einstiegDatas: vM.einstieg[i][j],
+    //                                area: calculateArea(i: i, j: j),
+    //                                selectedArea: $selectedArea,
+    //                                selectedField: $selectedField,
+    //                                selectedValue: $selectedValue
+    //                            )
+    //                        }
+                            
                         }
-                        
                     }
                 }
             }
+            .overlay(
+                RoundedRectangle(cornerRadius: 15)
+                    .stroke(Color.black, lineWidth: 5)
+            )
+            
+            Picker("EntryType", selection: $vM.normalOrCandidate) {
+                Text("Normal").tag(EntryType.normal)
+                Text("Candidate").tag(EntryType.candidate)
+            }
+            .pickerStyle(.segmented)
+            .padding()
+            
+            VStack(spacing: 0) {
+                HStack(spacing: 0) {
+                    ForEach(Array(btnFirstLine.enumerated()), id: \.offset) { index, item in
+                        SetValueBtnView(roundedBorder: index == 0 ? [.topLeft] : index == 4 ? [.topRight] : [], value: item)
+                    }
+                }
+                HStack(spacing: 0) {
+                    ForEach(Array(btnSecondLine.enumerated()), id: \.offset) { index, item in
+                        SetValueBtnView(roundedBorder: index == 0 ? [.bottomLeft] : index == 4 ? [.bottomRight] : [], value: item)
+                    }
+                }
+            }
+            .overlay(
+                RoundedRectangle(cornerRadius: 15)
+                    .stroke(Color.black, lineWidth: 3)
+            )
         }
-        .overlay(
-            RoundedRectangle(cornerRadius: 15)
-                .stroke(Color.black, lineWidth: 5)
-        )
+        
     }
     
     func calculateArea(i: Int, j: Int) -> AreaAndField {
@@ -137,10 +182,16 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .environmentObject(ViewModel())
     }
 }
 
-enum AreaAndField: String {
+enum EntryType: String {
+    case normal = "Normal"
+    case candidate = "Candidate"
+}
+
+enum AreaAndField: String, Hashable {
     case zero = "0"
     case one = "1"
     case two = "2"
@@ -152,3 +203,5 @@ enum AreaAndField: String {
     case eight = "8"
     case nine = "9"
 }
+
+
