@@ -99,7 +99,7 @@ struct SetValueBtnView: View {
 
             }
             if fill {
-                p.fill(.white)
+                p.fill(Color("fieldBackground"))
             } else {
                 p.stroke(Color.secondary, lineWidth: 1)
             }

@@ -22,16 +22,16 @@ struct Field: View {
     @State var selected: Bool = false
     
     @State var beginValue: Bool = false
+    
+    @State var positions: (Int, Int, Int) = (0,0,0)
 
-    @State var showLine: Bool = false
-    @State var showArea: Bool = false
-    @State var showWrongEntry: Bool = true
+    
     
     @EnvironmentObject var vM: ViewModel
     
     var selectedFieldColor: Color = Color.accentColor.opacity(0.7)
     var highlightedFieldColor: Color = .blue.opacity(0.7)
-    var beginFieldColor: Color = .gray.opacity(0.7)
+    var beginFieldColor: Color = Color("lightGray")
     var wrongEntryFieldColor: Color = .red.opacity(0.7)
     
     func isActualSelected() -> Bool {
@@ -41,21 +41,31 @@ struct Field: View {
     var body: some View {
         ZStack {
             VStack {
-                if beginValue {
-                    Text(vM.getEinstiegValue(area: area, field: field).rawValue)
-                } else {
-                    if let value = vM.getEintragungenValue(area: area, field: field) {
-                        if value == .zero {
-                            Text(" ")
-                        } else {
-                            Text(value.rawValue)
-                        }
+//                if beginValue {
+//                    Text(vM.getEinstiegValue(area: area, field: field).rawValue)
+//                } else {
+//                    if let value = vM.getEintragungenValue(area: area, field: field) {
+//                        if value == .zero {
+//                            Text(" ")
+//                        } else {
+//                            Text(value.rawValue)
+//                        }
+//                    }
+//                }
+                if vM.einstieg[positions.0][positions.1][positions.2] == .zero {
+                    if vM.eintragungen[positions.0][positions.1][positions.2] == .zero {
+                        Text(" ")
+                    } else {
+                        Text(vM.eintragungen[positions.0][positions.1][positions.2].rawValue)
                     }
+                } else {
+                    Text(vM.einstieg[positions.0][positions.1][positions.2].rawValue)
                 }
+                
             }
             CandidateFieldView(area: area, field: field, values: [.one, .three, .seven, .nine])
         }
-        .font(.title2)
+        .font(.title).bold()
         .frame(width: 40, height: 40)
         .background(strokeAndFill())
         .background(strokeAndFill(fill: true))
@@ -64,14 +74,18 @@ struct Field: View {
             selectedArea = area
             selectedField = field
             selectedValue = fieldValue
+            print("SelectedValue: \(selectedValue)")
+            print("FieldValue: \(fieldValue)")
 //            vM.setValue(area: area, field: field, value: .five)
             vM.setPopupField(area: area, field: field)
 
         }
         .onAppear {
-            if vM.getEinstiegValue(area: area, field: field) != .zero {
-                beginValue = true
-            }
+//            if vM.getEinstiegValue(area: area, field: field) != .zero {
+//                beginValue = true
+//            }
+            positions = vM.calculatePosition(area: area, field: field)
+            beginValue = vM.einstieg[positions.0][positions.1][positions.2] != .zero
         }
     }
     
@@ -143,8 +157,8 @@ struct Field: View {
             if fill {
                 p.fill(isActualSelected() ? selectedFieldColor :
                         amIHighlighted() ? highlightedFieldColor :
-                            beginValue ? beginFieldColor :
-                        showWrongEntry && !vM.isEntryValid(area: area, field: field) ? wrongEntryFieldColor : .clear)
+                        (vM.einstieg[positions.0][positions.1][positions.2] != .zero) ? beginFieldColor :
+                        vM.showWrongEntry && !vM.isEntryValid(area: area, field: field) ? wrongEntryFieldColor : Color("fieldBackground"))
             } else {
                 p.stroke(Color.secondary, lineWidth: 1)
             }
@@ -154,7 +168,7 @@ struct Field: View {
     
     func amIHighlighted() -> Bool {
         var value:Bool = false
-        if showLine {
+        if vM.showLine {
             if let sArea = dict[selectedArea], sArea.contains(area) {
                 let areaPos:AreaPos = whereIsTheArea()
                 
@@ -190,7 +204,7 @@ struct Field: View {
         }
         
         
-        if showArea && selectedArea == area {
+        if vM.showArea && selectedArea == area {
             value = true
         }
         

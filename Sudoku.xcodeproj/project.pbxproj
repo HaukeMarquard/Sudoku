@@ -17,6 +17,10 @@
 		A8647BF3298599D500C25CF5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8647BF2298599D500C25CF5 /* Preview Assets.xcassets */; };
 		A881D0C829BF6CBF00DEF3C4 /* SetValueBtnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A881D0C729BF6CBF00DEF3C4 /* SetValueBtnView.swift */; };
 		A881D0CA29BF79A900DEF3C4 /* CandidateFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A881D0C929BF79A900DEF3C4 /* CandidateFieldView.swift */; };
+		A881D0CC29C043D100DEF3C4 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A881D0CB29C043D100DEF3C4 /* Settings.swift */; };
+		A881D0CE29C0492C00DEF3C4 /* StopWatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A881D0CD29C0492C00DEF3C4 /* StopWatchView.swift */; };
+		A881D0D029C04BB000DEF3C4 /* StopWatchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A881D0CF29C04BB000DEF3C4 /* StopWatchManager.swift */; };
+		A8E5D68329C0BCE400915BB5 /* CSVHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E5D68229C0BCE400915BB5 /* CSVHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +35,10 @@
 		A8647BF2298599D500C25CF5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		A881D0C729BF6CBF00DEF3C4 /* SetValueBtnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetValueBtnView.swift; sourceTree = "<group>"; };
 		A881D0C929BF79A900DEF3C4 /* CandidateFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateFieldView.swift; sourceTree = "<group>"; };
+		A881D0CB29C043D100DEF3C4 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		A881D0CD29C0492C00DEF3C4 /* StopWatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopWatchView.swift; sourceTree = "<group>"; };
+		A881D0CF29C04BB000DEF3C4 /* StopWatchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopWatchManager.swift; sourceTree = "<group>"; };
+		A8E5D68229C0BCE400915BB5 /* CSVHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +71,7 @@
 		A8647BEA298599D400C25CF5 /* Sudoku */ = {
 			isa = PBXGroup;
 			children = (
+				A881D0CD29C0492C00DEF3C4 /* StopWatchView.swift */,
 				A8647BEB298599D400C25CF5 /* SudokuApp.swift */,
 				A8647BED298599D400C25CF5 /* ContentView.swift */,
 				A8647BEF298599D500C25CF5 /* Assets.xcassets */,
@@ -73,6 +82,9 @@
 				A821212B29BE0577004BA383 /* ViewModel.swift */,
 				A881D0C729BF6CBF00DEF3C4 /* SetValueBtnView.swift */,
 				A881D0C929BF79A900DEF3C4 /* CandidateFieldView.swift */,
+				A881D0CB29C043D100DEF3C4 /* Settings.swift */,
+				A881D0CF29C04BB000DEF3C4 /* StopWatchManager.swift */,
+				A8E5D68229C0BCE400915BB5 /* CSVHelper.swift */,
 			);
 			path = Sudoku;
 			sourceTree = "<group>";
@@ -158,10 +170,14 @@
 				A8647BEE298599D400C25CF5 /* ContentView.swift in Sources */,
 				A821212A29BA3C10004BA383 /* Border.swift in Sources */,
 				A881D0C829BF6CBF00DEF3C4 /* SetValueBtnView.swift in Sources */,
+				A881D0D029C04BB000DEF3C4 /* StopWatchManager.swift in Sources */,
 				A8647BEC298599D400C25CF5 /* SudokuApp.swift in Sources */,
 				A821212629BA36EF004BA383 /* Area.swift in Sources */,
 				A821212C29BE0577004BA383 /* ViewModel.swift in Sources */,
+				A881D0CE29C0492C00DEF3C4 /* StopWatchView.swift in Sources */,
+				A881D0CC29C043D100DEF3C4 /* Settings.swift in Sources */,
 				A821212429BA36A1004BA383 /* Field.swift in Sources */,
+				A8E5D68329C0BCE400915BB5 /* CSVHelper.swift in Sources */,
 				A881D0CA29BF79A900DEF3C4 /* CandidateFieldView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

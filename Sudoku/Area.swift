@@ -37,7 +37,8 @@ struct Area: View {
                                 i == 0 && j == 2 && roundedBorder.contains(.topRight) ? [.topRight] :
                                 i == 2 && j == 0 && roundedBorder.contains(.bottomLeft) ? [.bottomLeft] :
                                 i == 2 && j == 2 && roundedBorder.contains(.bottomRight) ? [.bottomRight] : [],
-                            fieldValue: einstiegDatas[calculatePos(i: i, j: j)],
+//                            fieldValue: einstiegDatas[calculatePos(i: i, j: j)],
+                            fieldValue: vM.getFieldValue(area: area, field: AreaAndField(rawValue: String(calculatePos(i: i, j: j))) ?? .zero),
                             area: area,
                             field: AreaAndField(rawValue: String(calculatePos(i: i, j: j))) ?? .zero,
                             selectedArea: $selectedArea,
@@ -111,7 +112,7 @@ struct Area: View {
                     }
  
                 }
-                .stroke(Color.black, lineWidth: 2)
+                .stroke(Color.primary, lineWidth: 2)
             }
         )
         

@@ -69,11 +69,66 @@ struct ContentView: View {
     
     @State var selectedEntryType: EntryType = .normal
     
+    @State var showSettings: Bool = false
+    
     var btnFirstLine: [AreaAndField] = [.one, .two, .three, .four, .five]
     var btnSecondLine: [AreaAndField] = [.six, .seven, .eight, .nine, .zero]
     
     var body: some View {
         VStack {
+            
+            HStack {
+                
+                Button {
+                    showSettings = true
+                } label: {
+                    Image(systemName: "gearshape")
+                        .foregroundColor(Color.primary)
+                        .frame(width: 25, height: 25)
+                        .font(.callout)
+                        .padding(8)
+                        .background(Color("fieldBackground"))
+                        .cornerRadius(25)
+                        .overlay (
+                            RoundedRectangle(cornerRadius: 25)
+                                .stroke(Color.gray, lineWidth: 1)
+                        )
+                }
+                
+                Spacer()
+                
+                StopWatchView()
+                    .padding(.vertical, 8)
+                    .padding(.horizontal, 16)
+                    .background(Color("fieldBackground"))
+                    .cornerRadius(25)
+                    .overlay (
+                        RoundedRectangle(cornerRadius: 25)
+                            .stroke(Color.gray, lineWidth: 1)
+                    )
+                
+                Spacer()
+                
+                Button {
+                    vM.setNewLevel()
+                } label: {
+                    Image(systemName: "plus")
+                        .foregroundColor(Color.primary)
+                        .frame(width: 25, height: 25)
+                        .font(.callout)
+                        .padding(8)
+                        .background(Color("fieldBackground"))
+                        .cornerRadius(25)
+                        .overlay (
+                            RoundedRectangle(cornerRadius: 25)
+                                .stroke(Color.gray, lineWidth: 1)
+                        )
+                }
+            }
+            .padding()
+
+            Spacer()
+            
             VStack(spacing: 0) {
                 ForEach(0..<3) { i in
                     HStack(spacing: 0) {
@@ -144,8 +199,10 @@ struct ContentView: View {
             }
             .overlay(
                 RoundedRectangle(cornerRadius: 15)
-                    .stroke(Color.black, lineWidth: 5)
+                    .stroke(Color.gray, lineWidth: 5)
             )
+            
+            Spacer()
             
             Picker("EntryType", selection: $vM.normalOrCandidate) {
                 Text("Normal").tag(EntryType.normal)
@@ -168,8 +225,12 @@ struct ContentView: View {
             }
             .overlay(
                 RoundedRectangle(cornerRadius: 15)
-                    .stroke(Color.black, lineWidth: 3)
+                    .stroke(Color.primary, lineWidth: 3)
             )
+        }
+        .background(Color("viewBackground"))
+        .sheet(isPresented: $showSettings) {
+            Settings()
         }
         
     }
