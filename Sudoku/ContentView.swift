@@ -86,7 +86,7 @@ struct ContentView: View {
                                     i == 0 && j == 2 ? [.topRight] :
                                     i == 2 && j == 0 ? [.bottomLeft] :
                                     i == 2 && j == 2 ? [.bottomRight] : [],
-                                einstiegDatas: vM.einstieg[i][j],
+                                einstiegDatas: vM.puzzle[i][j],
                                 area: calculateArea(i: i, j: j),
                                 selectedArea: $selectedArea,
                                 selectedField: $selectedField,

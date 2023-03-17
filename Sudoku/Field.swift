@@ -41,14 +41,14 @@ struct Field: View {
     var body: some View {
         ZStack {
             VStack {
-                if vM.einstieg[positions.0][positions.1][positions.2] == .zero {
-                    if vM.eintragungen[positions.0][positions.1][positions.2] == .zero {
+                if vM.puzzle[positions.0][positions.1][positions.2] == .zero {
+                    if vM.entries[positions.0][positions.1][positions.2] == .zero {
                         Text(" ")
                     } else {
-                        Text(vM.eintragungen[positions.0][positions.1][positions.2].rawValue)
+                        Text(vM.entries[positions.0][positions.1][positions.2].rawValue)
                     }
                 } else {
-                    Text(vM.einstieg[positions.0][positions.1][positions.2].rawValue)
+                    Text(vM.puzzle[positions.0][positions.1][positions.2].rawValue)
                 }
                 
             }
@@ -71,7 +71,7 @@ struct Field: View {
         }
         .onAppear {
             positions = vM.calculatePosition(area: area, field: field)
-            beginValue = vM.einstieg[positions.0][positions.1][positions.2] != .zero
+            beginValue = vM.puzzle[positions.0][positions.1][positions.2] != .zero
         }
     }
     
@@ -143,7 +143,7 @@ struct Field: View {
             if fill {
                 p.fill(isActualSelected() ? selectedFieldColor :
                         amIHighlighted() ? highlightedFieldColor :
-                        (vM.einstieg[positions.0][positions.1][positions.2] != .zero) ? beginFieldColor :
+                        (vM.puzzle[positions.0][positions.1][positions.2] != .zero) ? beginFieldColor :
                         vM.showWrongEntry && !vM.isEntryValid(area: area, field: field) ? wrongEntryFieldColor : Color("fieldBackground"))
             } else {
                 p.stroke(Color.secondary, lineWidth: 1)

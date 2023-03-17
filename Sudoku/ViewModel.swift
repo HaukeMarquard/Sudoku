@@ -20,7 +20,7 @@ struct CandidateDict: Hashable {
 }
 
 class ViewModel: ObservableObject {
-    @Published var einstieg: [[[AreaAndField]]] = [
+    @Published var puzzle: [[[AreaAndField]]] = [
         [
             [.zero,.five,.zero,.zero,.zero,.three,.one,.eight,.zero],
             [.zero,.one,.nine,.zero,.zero,.five,.zero,.four,.seven],
@@ -36,8 +36,8 @@ class ViewModel: ObservableObject {
             [.zero,.eight,.zero,.one,.zero,.three,.zero,.zero,.zero],
             [.zero,.four,.zero,.zero,.zero,.two,.zero,.three,.zero]]
     ]
-    @Published var eintragungen: [[[AreaAndField]]] = blankoEintragungen
-    @Published var loesung: [[[AreaAndField]]] = [
+    @Published var entries: [[[AreaAndField]]] = blancoEntries
+    @Published var solution: [[[AreaAndField]]] = [
         [
             [.seven, .five, .six, .four, .nine, .three, .one, .eight, .two],
             [.eight, .one, .nine, .two, .six, .five, .three, .four, .seven],
@@ -64,22 +64,22 @@ class ViewModel: ObservableObject {
     
     func setValue(area: AreaAndField, field: AreaAndField, value: AreaAndField ) {
         let (first, second, third) = calculatePosition(area: area, field: field)
-        eintragungen[first][second][third] = AreaAndField(rawValue: String(Int.random(in: 1...9))) ?? .zero
+        entries[first][second][third] = AreaAndField(rawValue: String(Int.random(in: 1...9))) ?? .zero
     }
     
     func getEinstiegValue(area: AreaAndField, field: AreaAndField) -> AreaAndField {
         let (first, second, third) = calculatePosition(area: area, field: field)
-        return einstieg[first][second][third]
+        return puzzle[first][second][third]
     }
     
     func getEintragungenValue(area: AreaAndField, field: AreaAndField) -> AreaAndField {
         let (first, second, third) = calculatePosition(area: area, field: field)
-        return eintragungen[first][second][third]
+        return entries[first][second][third]
     }
     
     func isEntryValid(area: AreaAndField, field: AreaAndField) -> Bool {
         let (first, second, third) = calculatePosition(area: area, field: field)
-        return eintragungen[first][second][third] == loesung[first][second][third] || eintragungen[first][second][third] == .zero
+        return entries[first][second][third] == solution[first][second][third] || entries[first][second][third] == .zero
     }
     
     func calculatePosition(area: AreaAndField, field: AreaAndField) -> (Int,Int,Int) {
@@ -96,7 +96,7 @@ class ViewModel: ObservableObject {
     
     func setNormal(value: AreaAndField) {
         if normalOrCandidate == .normal {
-            eintragungen[selectedField.first][selectedField.second][selectedField.third] = value
+            entries[selectedField.first][selectedField.second][selectedField.third] = value
         } else {
             if value == .zero {
                 candidates[CandidateDict(selectedField.first, selectedField.second, selectedField.third)] = []
@@ -124,13 +124,13 @@ class ViewModel: ObservableObject {
     
     func getFieldValue(area: AreaAndField, field: AreaAndField) -> AreaAndField {
         let (first, second, third) = calculatePosition(area: area, field: field)
-        guard einstieg[first][second][third] != nil else { return .zero }
-        return einstieg[first][second][third] == .zero ? eintragungen[first][second][third] : einstieg[first][second][third]
+        guard puzzle[first][second][third] != nil else { return .zero }
+        return puzzle[first][second][third] == .zero ? entries[first][second][third] : puzzle[first][second][third]
     }
     
     func setNewLevel() {
-        einstieg = createOwnFormat()
-        eintragungen = blankoEintragungen
+        puzzle = createOwnFormat()
+        entries = blancoEntries
     }
     
 }
@@ -201,7 +201,7 @@ extension Array {
     }
 }
 
-var blankoEintragungen: [[[AreaAndField]]] = [
+var blancoEntries: [[[AreaAndField]]] = [
     [
         [.zero,.zero,.zero,.zero,.zero,.zero,.zero,.zero,.zero],
         [.zero,.zero,.zero,.zero,.zero,.zero,.zero,.zero,.zero],
