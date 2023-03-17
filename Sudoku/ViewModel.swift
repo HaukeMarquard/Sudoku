@@ -132,18 +132,24 @@ class ViewModel: ObservableObject {
         einstieg = createOwnFormat()
         eintragungen = blankoEintragungen
     }
+    
 }
 
 func getCSVData() -> Array<String> {
-    do {
-        let content = try String(contentsOfFile: "/Users/haukemarquard/Downloads/new.csv")
-        
-        print(content)
-        let parsedCSV: [String] = content.components(
-            separatedBy: "\n"
-        ).map{ $0.components(separatedBy: ",")[0] };        return parsedCSV
-    }
-    catch {
+    
+    if let filepath = Bundle.main.path(forResource: "sudokus", ofType: "csv") {
+        do {
+            let contents = try String(contentsOfFile: filepath)
+            let parsedCSV: [String] = contents.components(
+                separatedBy: "\n"
+            ).map{ $0.components(separatedBy: ",")[0] };        return parsedCSV
+            // Verarbeite den Inhalt der Datei hier weiter
+        } catch {
+            print("Fehler beim Lesen der Datei: \(error)")
+            return []
+        }
+    } else {
+        print("Datei nicht gefunden.")
         return []
     }
 }
@@ -161,9 +167,8 @@ func createOwnFormat() -> [[[AreaAndField]]] {
             [],[],[]
         ]
     ]
-
-//        var inputArray =  "070000043040009610800634900094052000358460020000800530080070091902100005007040802"
-    var inputArray = getCSVData()[0]
+    let randInt = Int.random(in: 0...999)
+    var inputArray = getCSVData()[randInt]
     var array = Array(inputArray)
     let subArrays = array.chunked(into: 27)
     for i in 0..<3 {
@@ -179,7 +184,6 @@ func createOwnFormat() -> [[[AreaAndField]]] {
             }
         }
     }
-    print(things[0])
     return things
 }
 

@@ -15,8 +15,6 @@ struct StopWatchView: View {
     
     var body: some View {
         HStack(spacing: 5) {
-//            Text("\(String(stopWatchManager.minutesElapsed)):\(String(format: "%02.f", stopWatchManager.secondsElapsed))") // Um nur die Sekunden anzuzeigen: "1.f"
-//                .font(.title3)
             HStack(spacing: 0) {
                 DigitView(digit: Int(stopWatchManager.secondsElapsed / 60 / 10))
                 DigitView(digit: Int(Int(stopWatchManager.secondsElapsed) / 60 % 10))
@@ -62,11 +60,6 @@ struct DigitView: View {
         Text(String(digit))
             .frame(width: 12, height: 25)
             .font(.callout).bold()
-//            .background(Color.white)
             .cornerRadius(4)
-//            .overlay(
-//                RoundedRectangle(cornerRadius: 4)
-//                    .stroke(Color.gray, lineWidth: 2)
-//            )
     }
 }

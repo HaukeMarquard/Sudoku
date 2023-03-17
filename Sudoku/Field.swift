@@ -41,17 +41,6 @@ struct Field: View {
     var body: some View {
         ZStack {
             VStack {
-//                if beginValue {
-//                    Text(vM.getEinstiegValue(area: area, field: field).rawValue)
-//                } else {
-//                    if let value = vM.getEintragungenValue(area: area, field: field) {
-//                        if value == .zero {
-//                            Text(" ")
-//                        } else {
-//                            Text(value.rawValue)
-//                        }
-//                    }
-//                }
                 if vM.einstieg[positions.0][positions.1][positions.2] == .zero {
                     if vM.eintragungen[positions.0][positions.1][positions.2] == .zero {
                         Text(" ")
@@ -81,9 +70,6 @@ struct Field: View {
 
         }
         .onAppear {
-//            if vM.getEinstiegValue(area: area, field: field) != .zero {
-//                beginValue = true
-//            }
             positions = vM.calculatePosition(area: area, field: field)
             beginValue = vM.einstieg[positions.0][positions.1][positions.2] != .zero
         }
